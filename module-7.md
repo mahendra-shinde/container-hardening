@@ -12,3 +12,4 @@
 - Integrate security tools into CI/CD pipelines.
 - Automate vulnerability scanning, compliance checks, and policy enforcement.
 - Foster collaboration between development, security, and operations teams.
+
