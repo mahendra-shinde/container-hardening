@@ -18,3 +18,16 @@
 ## Managing Secrets in Images and Containers
 - Never hardcode secrets in images.
 - Use Docker secrets, environment variables, or secret management tools (e.g., HashiCorp Vault).
+
+## Scanning Docker Images with Grype
+
+Grype is an open-source vulnerability scanner for container images.
+
+**Steps to use Grype:**
+1. [Install Grype](https://github.com/anchore/grype#installation) on your system.
+
+2. Run the following command to scan an image:
+    ```sh
+    grype <image-name>
+    ```
+3. Review the output for detected vulnerabilities and recommended remediations.
