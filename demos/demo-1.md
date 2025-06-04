@@ -45,6 +45,51 @@ sudo systemctl start docker
 ```
 
 ---
+## Allow or Deny Linux User Access to Docker Daemon
+
+1. **Create a new user `user1`**
+    ```sh
+    sudo adduser user1
+    # Enter password: password1
+    # Skip all user info prompts
+    ```
+
+2. **Check if `user1` has access to the Docker daemon**
+    ```sh
+    su user1
+    # Enter password: password1
+    docker images
+    # EXPECTED: Permission Error
+    exit
+    ```
+
+3. **Allow `user1` access to the Docker daemon (as default user `azureadmin`)**
+    ```sh
+    sudo usermod -aG docker user1
+    ```
+
+4. **Verify `user1` now has access**
+    ```sh
+    su user1
+    # Enter password: password1
+    docker images
+    # EXPECTED: No Error!
+    exit
+    ```
+
+5. **Deny `user1` access to the Docker daemon **
+    ```sh
+    sudo gpasswd -d user1 docker
+    ```
+
+6. **Check if `user1` access is denied again**
+    ```sh
+    su user1
+    # Enter password: password1
+    docker images
+    # EXPECTED: Permission Error
+    exit
+    ```
 
 ## Check the AppArmor Status and List profiles
 
