@@ -29,11 +29,11 @@ This demo shows how to use Kubernetes Network Policies to control traffic betwee
 3. **Test Network Policy:**
    - **From app1 to app2 (should succeed):**
      ```sh
-     kubectl exec app1-pod -- wget -qO- http://app2-pod:80
+     kubectl exec app1-pod -- wget -qO- http://app2:80
      ```
    - **From app2 to app1 (should succeed):**
      ```sh
-     kubectl exec app2-pod -- wget -qO- http://app1-pod:80
+     kubectl exec app2-pod -- wget -qO- http://app1:80
      ```
    - **From any other pod (should be denied):**
      Deploy a test pod and try to access `app2-pod`.
