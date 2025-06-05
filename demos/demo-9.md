@@ -1,5 +1,4 @@
 ## Setting Up Docker Desktop with Windows Containers
-
 This guide walks you through enabling Windows features, installing Docker Desktop, and configuring it for Windows containers.
 
 ---
@@ -20,20 +19,20 @@ Enable-WindowsOptionalFeature -FeatureName Microsoft-Hyper-V -Online
 
 ### 2. Download Docker Desktop
 
-- Go to the [Docker Desktop for Windows (AMD64)](https://www.docker.com/products/docker-desktop/) download page.
-- Download the installer suitable for your system.
+- Visit the [Docker Desktop for Windows (AMD64)](https://www.docker.com/products/docker-desktop/) download page.
+- Download the installer appropriate for your system.
 
 ---
 
 ### 3. Install Docker Desktop
 
 - Run the downloaded installer.
-- During installation, **check all three options**:
+- During installation, select:
     1. **Use WSL 2 (Linux Containers)** *(recommended for Linux containers)*
     2. **Use Windows Containers** *(required for Windows containers)*
     3. **Add Desktop Icon**
 
-> **Note:** You can switch between Linux and Windows containers later.
+> **Note:** You can switch between Linux and Windows containers after installation.
 
 - Click **Start Installation**.
 - The system may restart during installation.
@@ -42,7 +41,7 @@ Enable-WindowsOptionalFeature -FeatureName Microsoft-Hyper-V -Online
 
 ### 4. Initial Docker Desktop Setup
 
-- After restart, launch Docker Desktop using the desktop icon.
+- After restart, launch Docker Desktop from the desktop icon.
 - Wait for Docker to finish initializing (icon animation stops in the system tray).
 - **Switch to Windows Containers**:
     - Right-click the Docker Desktop icon in the system tray.
@@ -64,12 +63,22 @@ docker version
 
 ### 6. Pull a Windows Container Image
 
-To pull the Windows Server Core image:
+To pull the Windows Server Core image, run:
 
 ```shell
 docker pull mcr.microsoft.com/windows/servercore:ltsc2022
 ```
 
----
+### 7. Run Windows Containers with Different Isolation Modes
 
-You are now ready to run Windows containers on your system!
+- **Native (Process) Isolation:** All child processes of the container are visible from the host OS.
+
+    ```shell
+    docker run -it --name c1 mcr.microsoft.com/windows/servercore:ltsc2022 cmd
+    ```
+
+- **Hyper-V Isolation:** Child processes inside the container are not visible from the host OS.
+
+    ```shell
+    docker run -it --name c2 --isolation hyperv mcr.microsoft.com/windows/servercore:ltsc2022 cmd
+    ```
