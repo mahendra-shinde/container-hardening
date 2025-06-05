@@ -71,14 +71,48 @@ docker pull mcr.microsoft.com/windows/servercore:ltsc2022
 
 ### 7. Run Windows Containers with Different Isolation Modes
 
-- **Native (Process) Isolation:** All child processes of the container are visible from the host OS.
+Windows containers can run in two isolation modes: **Process (Native) Isolation** and **Hyper-V Isolation**. The main difference is how processes inside the container are exposed to the host operating system.
+
+#### **Process (Native) Isolation**
+
+In this mode, container processes run directly on the host OS. This means processes inside the container are visible and manageable from the host.
+
+**Steps:**
+
+1. **Start a container named `c1`:**
 
     ```shell
     docker run -it --name c1 mcr.microsoft.com/windows/servercore:ltsc2022 cmd
+    ping google.com -t
     ```
 
-- **Hyper-V Isolation:** Child processes inside the container are not visible from the host OS.
+2. **Open Task Manager on the host OS.**
+3. **Search for the `PING` process.**  
+   You should see the `PING` process running, as it is visible to the host.
+4. **End the `PING` process from Task Manager.**  
+   The container will report that the `PING` process has stopped.
+5. **Exit the container by typing `exit`.**
+
+#### **Hyper-V Isolation**
+
+In this mode, each container runs inside a lightweight virtual machine. Processes inside the container are isolated from the host and are not visible in Task Manager.
+
+**Steps:**
+
+1. **Start a container named `c2` with Hyper-V isolation:**
 
     ```shell
     docker run -it --name c2 --isolation hyperv mcr.microsoft.com/windows/servercore:ltsc2022 cmd
+    ping google.com -t
     ```
+
+2. **Open Task Manager on the host OS.**
+3. **Search for the `PING` process.**  
+   You will not find the `PING` process, as it is isolated within the container's VM.
+4. **Exit the container by typing `exit`.**
+
+---
+
+**Summary:**  
+- **Process Isolation:** Container processes are visible and manageable from the host.
+- **Hyper-V Isolation:** Container processes are hidden from the host, providing stronger isolation.
