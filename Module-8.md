@@ -136,6 +136,24 @@ Kubernetes policy engines like **Kyverno** and **Open Policy Agent (OPA)** help 
 
 Kyverno is a Kubernetes-native policy engine that allows you to write policies as Kubernetes resources.
 
+### Installing Kyverno in a Kubernetes Cluster
+
+To install Kyverno in your Kubernetes cluster, apply the official installation manifest:
+
+```bash
+kubectl apply -f https://github.com/kyverno/kyverno/releases/download/v1.13.0/install.yaml
+```
+
+This command deploys Kyverno and its required components into your cluster.  
+After installation, verify that the Kyverno pods are running:
+
+```bash
+kubectl get pods -n kyverno
+```
+
+For more details and advanced installation options, refer to the [Kyverno documentation](https://kyverno.io/docs/installation/).
+
+
 - **Example Policy:** Enforce that all pods requesting confidential resources must have KBS annotations.
 
     ```yaml
@@ -143,6 +161,7 @@ Kyverno is a Kubernetes-native policy engine that allows you to write policies a
     kind: ClusterPolicy
     metadata:
         name: require-kbs-annotation
+        namespace: dev
     spec:
         validationFailureAction: enforce
         rules:

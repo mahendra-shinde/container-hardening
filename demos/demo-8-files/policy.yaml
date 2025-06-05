@@ -1,0 +1,19 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: require-kbs-annotation
+  namespace: dev
+spec:
+  validationFailureAction: Enforce
+  rules:
+  - name: check-kbs-annotation
+    match:
+      resources:
+        kinds:
+          - Pod
+    validate:
+      message: "Pods running confidential workloads must have the KBS annotation."
+      pattern:
+        metadata:
+          annotations:
+            kbs.confidentialcontainers.io/enabled: "true"

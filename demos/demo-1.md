@@ -123,7 +123,7 @@ sudo systemctl start docker
     network,
     file,
     umount,
-    deny /bin/su rix,
+    deny /bin/su x,
     }
     ```
 
@@ -136,7 +136,7 @@ sudo systemctl start docker
 3. Run Docker with the profile:
 
     ```sh
-    sudo docker run --rm --security-opt apparmor=my-docker-profile ubuntu:24.04 uname -a
+    docker run --rm --security-opt apparmor=my-docker-profile ubuntu:24.04 uname -a
     ```
 
 ## Test a Disabled Feature (e.g., `su` command)
@@ -144,7 +144,7 @@ sudo systemctl start docker
 Try running a command inside the container that is denied by the profile (such as `/bin/su`):
 
     ```sh
-    sudo docker run --rm --security-opt apparmor=my-docker-profile ubuntu:24.04 su
+    docker run --rm -d --security-opt apparmor=my-docker-profile nginx:alpine
     ```
 
 You should see a permission denied error, confirming the AppArmor profile is active.
