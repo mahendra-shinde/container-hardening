@@ -56,7 +56,7 @@ services:
 
 ### 5. Scan Images for Vulnerabilities
 
-Download trivy for windows from [Windows Version][https://github.com/aquasecurity/trivy/releases/download/v0.69.1/trivy_0.69.1_windows-64bit.zip]
+Download trivy for windows from [Windows Version](https://github.com/aquasecurity/trivy/releases/download/v0.69.1/trivy_0.69.1_windows-64bit.zip)
 After download, extract the contents to `C:\tools` directory.
 Make sure `c:\tools` directory is added to your windows ENV variable `path`
 
